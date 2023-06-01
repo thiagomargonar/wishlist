@@ -1,10 +1,7 @@
 package com.example.wishlist.converter;
 
 import com.example.wishlist.domain.Person;
-import com.example.wishlist.domain.Product;
-import com.example.wishlist.domain.Wishlist;
 import com.example.wishlist.dto.PersonDTO;
-import com.example.wishlist.dto.ProductDTO;
 import com.example.wishlist.dto.WishlistDTO;
 
 import java.util.ArrayList;
@@ -17,27 +14,21 @@ public class PersonDTOConverter {
 
     public static PersonDTO ofPerson(Person person) {
         return PersonDTO.builder()
-                .withDataNascimento(person.getDataNascimento())
                 .withId(person.getId())
+                .withWishDocument(person.getDocument())
+                .withDataNascimento(person.getDataNascimento())
                 .withNome(person.getNome())
-                .withWishList(getWishList(person.getWishList()))
+                .withWishList(getProducts(person.getWishlist()))
                 .build();
     }
 
-    private static WishlistDTO getWishList(Wishlist wishlist) {
-        return WishlistDTO.builder()
-                .withFinished(wishlist.getFinished())
-                .withProductDTOS(getProducts(wishlist.getProducts()))
-                .build();
-    }
-
-    private static List<ProductDTO> getProducts(List<Product> products) {
-        List<ProductDTO> pdcts = new ArrayList<>();
-        products.forEach(productDTO ->
-                pdcts.add(ProductDTO.builder()
-                        .withValue(productDTO.getValue())
-                        .withProductName(productDTO.getProductName())
-                        .withUrlImage(productDTO.getUrlImage())
+    private static List<WishlistDTO> getProducts(List<com.example.wishlist.domain.Wishlist> wishlists) {
+        List<WishlistDTO> pdcts = new ArrayList<>();
+        wishlists.forEach(wishlistDTO ->
+                pdcts.add(WishlistDTO.builder()
+                        .withValue(wishlistDTO.getValue())
+                        .withProductName(wishlistDTO.getProductName())
+                        .withUrlImage(wishlistDTO.getUrlImage())
                         .build())
         );
         return pdcts;

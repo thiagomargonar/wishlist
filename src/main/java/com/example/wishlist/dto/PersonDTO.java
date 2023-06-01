@@ -1,8 +1,11 @@
 package com.example.wishlist.dto;
 
+import com.example.wishlist.annotations.CpfOrCnpj;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.List;
 
 public class PersonDTO {
 
@@ -12,7 +15,11 @@ public class PersonDTO {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private LocalDate dataNascimento;
 
-    private WishlistDTO wishList;
+    @NotNull
+    @CpfOrCnpj
+    private String document;
+
+    private List<WishlistDTO> wishList;
 
     private PersonDTO() {
     }
@@ -21,7 +28,16 @@ public class PersonDTO {
         id = builder.id;
         nome = builder.nome;
         dataNascimento = builder.dataNascimento;
+        document = builder.document;
         wishList = builder.wishList;
+    }
+
+    public String getDocument() {
+        return document;
+    }
+
+    public List<WishlistDTO> getWishList() {
+        return wishList;
     }
 
     public static Builder builder() {
@@ -40,16 +56,12 @@ public class PersonDTO {
         return dataNascimento;
     }
 
-    public WishlistDTO getWishList() {
-        return wishList;
-    }
-
-
     public static final class Builder {
         private String id;
         private String nome;
         private LocalDate dataNascimento;
-        private WishlistDTO wishList;
+        private List<WishlistDTO> wishList;
+        private String document;
 
         private Builder() {
         }
@@ -64,13 +76,18 @@ public class PersonDTO {
             return this;
         }
 
+        public Builder withWishList(List<WishlistDTO> val) {
+            wishList = val;
+            return this;
+        }
+
         public Builder withDataNascimento(LocalDate val) {
             dataNascimento = val;
             return this;
         }
 
-        public Builder withWishList(WishlistDTO val) {
-            wishList = val;
+        public Builder withWishDocument(String val) {
+            document = val;
             return this;
         }
 

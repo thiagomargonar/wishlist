@@ -1,51 +1,61 @@
 package com.example.wishlist.dto;
 
-import java.util.List;
+import java.math.BigDecimal;
 
 public class WishlistDTO {
-    private Boolean finished;
 
-//    @Size(max = 20, message = "The limit of 20 products has been exceeded, surpassing the maximum size.")
-//    @NotEmpty
-//    @Valid
-    private List<ProductDTO> products;
+    private String productName;
+
+    private BigDecimal value;
+
+    private String urlImage;
 
     public WishlistDTO() {
     }
 
     private WishlistDTO(Builder builder) {
-        finished = builder.finished;
-        products = builder.productDTOS;
+        productName = builder.productName;
+        value = builder.value;
+        urlImage = builder.urlImage;
     }
 
     public static Builder builder() {
         return new Builder();
     }
 
-
-    public Boolean getFinished() {
-        return finished;
+    public String getProductName() {
+        return productName;
     }
 
-    public List<ProductDTO> getProducts() {
-        return products;
+    public BigDecimal getValue() {
+        return value;
+    }
+
+    public String getUrlImage() {
+        return urlImage;
     }
 
 
     public static final class Builder {
-        private Boolean finished;
-        private List<ProductDTO> productDTOS;
+        private String productName;
+        private BigDecimal value;
+        private String urlImage;
 
         private Builder() {
         }
 
-        public Builder withFinished(Boolean val) {
-            finished = val;
+        public Builder withProductName(String val) {
+            productName = val;
             return this;
         }
 
-        public Builder withProductDTOS(List<ProductDTO> val) {
-            productDTOS = val;
+        public Builder withValue(BigDecimal val) {
+            value = val;
+            return this;
+        }
+
+        public Builder withUrlImage(String val) {
+            urlImage = val;
             return this;
         }
 

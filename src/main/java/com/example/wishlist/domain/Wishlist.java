@@ -1,55 +1,64 @@
 package com.example.wishlist.domain;
 
-import org.springframework.data.annotation.Id;
-
-import javax.validation.Valid;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
-import java.util.List;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PositiveOrZero;
+import java.math.BigDecimal;
 
 public class Wishlist {
-    private Boolean finished;
-
-    @Size(max=20, message = "The limit of 20 products has been exceeded, surpassing the maximum size.")
-    @NotEmpty
-    @Valid
-    private List<Product> products;
+    @NotNull
+    private String productName;
+    @NotNull
+    @PositiveOrZero
+    private BigDecimal value;
+    @NotNull
+    private String urlImage;
 
     private Wishlist() {
     }
 
     private Wishlist(Builder builder) {
-        finished = builder.finished;
-        products = builder.products;
+        productName = builder.productName;
+        value = builder.value;
+        urlImage = builder.urlImage;
     }
 
     public static Builder builder() {
         return new Builder();
     }
 
-
-    public Boolean getFinished() {
-        return finished;
+    public String getProductName() {
+        return productName;
     }
 
-    public List<Product> getProducts() {
-        return products;
+    public BigDecimal getValue() {
+        return value;
+    }
+
+    public String getUrlImage() {
+        return urlImage;
     }
 
 
     public static final class Builder {
-        private Boolean finished;
-        private List<Product> products;
+        private String productName;
+        private BigDecimal value;
+        private String urlImage;
 
         private Builder() {
         }
-        public Builder withFinished(Boolean val) {
-            finished = val;
+
+        public Builder withProductName(String val) {
+            productName = val;
             return this;
         }
 
-        public Builder withProducts(List<Product> val) {
-            products = val;
+        public Builder withValue(BigDecimal val) {
+            value = val;
+            return this;
+        }
+
+        public Builder withUrlImage(String val) {
+            urlImage = val;
             return this;
         }
 

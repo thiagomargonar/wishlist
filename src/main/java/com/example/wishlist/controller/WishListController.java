@@ -25,22 +25,21 @@ public class WishListController {
                 .map(ResponseEntity::ok);
     }
 
-    @PostMapping("/save")
+    @PostMapping
     public Mono<ResponseEntity<PersonDTO>> saveWishListOfPerson(@RequestBody PersonDTO personDTO) {
         return Mono.just(personDTO)
-                //.flatMap(wishListService::saveWishList)
-                //.map(ResponseEntity::ok);
-                .thenReturn(ResponseEntity.ok(personDTO));
+                .flatMap(wishListService::saveWishList)
+                .map(ResponseEntity::ok);
     }
 
-    @PutMapping("/update")
-    public Mono<ResponseEntity<PersonDTO>> updateWishListOfPerson(@RequestBody @Valid PersonDTO personDTOas) {
-        return Mono.just(personDTOas)
+    @PutMapping
+    public Mono<ResponseEntity<PersonDTO>> updateWishListOfPerson(@RequestBody @Valid PersonDTO personDTO) {
+        return Mono.just(personDTO)
                 .flatMap(wishListService::updateWishList)
                 .map(ResponseEntity::ok);
     }
 
-    @DeleteMapping("/{personId}")
+    @DeleteMapping
     public Mono<ResponseEntity<PersonDTO>> deleteWishListOfPerson(@PathVariable String personId) {
         return Mono.just(personId)
                 .flatMap(wishListService::deleteWishListByPersonId)

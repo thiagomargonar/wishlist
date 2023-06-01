@@ -27,11 +27,10 @@ public class WishListRepositoryCustomImpl implements WishListRepositoryCustom{
         Query query = new Query();
         List<Criteria> criteriaList = new ArrayList<>();
         criteriaList.add(Criteria.where("_id").is(person.getId()));
-        criteriaList.add(Criteria.where("wishList.finished").is(person.getWishList().getFinished()));
         criteriaList.forEach(query::addCriteria);
 
         Update update = new Update()
-                .set(WISH_LIST, person.getWishList());
+                .set(WISH_LIST, person.getWishlist());
         return reactiveMongoTemplate.findAndModify(query, update, Person.class);
     }
 }
