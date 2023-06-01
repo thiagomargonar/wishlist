@@ -3,6 +3,7 @@ package com.example.wishlist.dto;
 import com.example.wishlist.annotations.CpfOrCnpj;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
@@ -11,14 +12,14 @@ public class PersonDTO {
 
     private String id;
 
-    private String nome;
+    private String name;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
-    private LocalDate dataNascimento;
+    private LocalDate birthDate;
 
     @NotNull
     @CpfOrCnpj
     private String document;
-
+    @NotEmpty
     private List<WishlistDTO> wishList;
 
     private PersonDTO() {
@@ -26,8 +27,8 @@ public class PersonDTO {
 
     private PersonDTO(Builder builder) {
         id = builder.id;
-        nome = builder.nome;
-        dataNascimento = builder.dataNascimento;
+        name = builder.nome;
+        birthDate = builder.dataNascimento;
         document = builder.document;
         wishList = builder.wishList;
     }
@@ -37,6 +38,9 @@ public class PersonDTO {
     }
 
     public List<WishlistDTO> getWishList() {
+        if(wishList.size() > 20){
+            throw new RuntimeException("Numero maximo sugerido na lista é maior que 20");
+        }
         return wishList;
     }
 
@@ -48,12 +52,12 @@ public class PersonDTO {
         return id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getName() {
+        return name;
     }
 
-    public LocalDate getDataNascimento() {
-        return dataNascimento;
+    public LocalDate getBirthDate() {
+        return birthDate;
     }
 
     public static final class Builder {

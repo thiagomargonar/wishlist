@@ -5,10 +5,10 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -19,17 +19,16 @@ public class Person {
     private String id;
 
     @NotNull
-    private String nome;
+    private String name;
 
     @NotNull
-    private LocalDate dataNascimento;
+    private LocalDate birthDate;
 
     @NotNull
     @CpfOrCnpj
     private String document;
 
     @NotEmpty
-    @Size(max = 20, message = "Numero maximo de produtos na lista excedido, por favor informe apenas 20 produtos.")
     private List<Wishlist> wishlist;
 
     private Person() {
@@ -37,8 +36,8 @@ public class Person {
 
     private Person(Builder builder) {
         id = builder.id;
-        nome = builder.nome;
-        dataNascimento = builder.dataNascimento;
+        name = builder.nome;
+        birthDate = builder.dataNascimento;
         document = builder.document;
         wishlist = builder.wishlist;
     }
@@ -51,12 +50,12 @@ public class Person {
         return id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getName() {
+        return name;
     }
 
-    public LocalDate getDataNascimento() {
-        return dataNascimento;
+    public LocalDate getBirthDate() {
+        return birthDate;
     }
 
     public String getDocument() {
@@ -64,6 +63,9 @@ public class Person {
     }
 
     public List<Wishlist> getWishlist() {
+        if(wishlist.size() > 20){
+            throw new RuntimeException("Numero maximo sugerido na lista é maior que 20");
+        }
         return wishlist;
     }
 

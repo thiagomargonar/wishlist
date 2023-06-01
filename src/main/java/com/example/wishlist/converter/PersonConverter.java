@@ -13,11 +13,11 @@ public class PersonConverter {
 
     public static Person ofPersonDTO(PersonDTO personDTO) {
         return Person.builder()
-                .withDataNascimento(personDTO.getDataNascimento())
+                .withDataNascimento(personDTO.getBirthDate())
                 .withId(personDTO.getId())
                 .withDocument(personDTO.getDocument())
                 .withWishlist(getProducts(personDTO.getWishList()))
-                .withNome(personDTO.getNome())
+                .withNome(personDTO.getName())
                 .build();
     }
 

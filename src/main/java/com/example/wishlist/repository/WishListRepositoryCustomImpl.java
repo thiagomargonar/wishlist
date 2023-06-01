@@ -15,7 +15,7 @@ import java.util.List;
 public class WishListRepositoryCustomImpl implements WishListRepositoryCustom{
 
 
-    public static final String WISH_LIST = "wishList";
+    public static final String WISH_LIST = "wishlist";
     private final ReactiveMongoTemplate reactiveMongoTemplate;
 
     public WishListRepositoryCustomImpl(ReactiveMongoTemplate reactiveMongoTemplate) {
@@ -26,7 +26,7 @@ public class WishListRepositoryCustomImpl implements WishListRepositoryCustom{
     public Mono<Person> updateWishList(Person person) {
         Query query = new Query();
         List<Criteria> criteriaList = new ArrayList<>();
-        criteriaList.add(Criteria.where("_id").is(person.getId()));
+        criteriaList.add(Criteria.where("document").is(person.getDocument()));
         criteriaList.forEach(query::addCriteria);
 
         Update update = new Update()

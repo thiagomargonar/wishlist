@@ -16,8 +16,8 @@ public class PersonDTOConverter {
         return PersonDTO.builder()
                 .withId(person.getId())
                 .withWishDocument(person.getDocument())
-                .withDataNascimento(person.getDataNascimento())
-                .withNome(person.getNome())
+                .withDataNascimento(person.getBirthDate())
+                .withNome(person.getName())
                 .withWishList(getProducts(person.getWishlist()))
                 .build();
     }

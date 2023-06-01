@@ -27,7 +27,7 @@ public class WishListService {
 
     public Mono<PersonDTO> getWishListByPersonId(String personID) {
         return Mono.just(personID)
-                .flatMap(personRepository::findById)
+                .flatMap(personRepository::findByDocument)
                 .doOnNext(person -> LOG.debug("Carrinho de compra localizado com sucesso: {}", person))
                 .flatMap(this::getPersonDtoByPerson)
                 .doOnError(throwable -> Mono.error(new SQLException(PROBLEMA_COM_BANCO_DE_DADOS, throwable)));
