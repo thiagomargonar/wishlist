@@ -1,0 +1,61 @@
+server:
+  port: 8080
+spring:
+  application:
+    group: wishlist
+    kafka: localhost:9092
+    definition:
+    mongo: mongodb://root:rootpassword@localhost
+  data:
+    mongodb:
+      auto-index-creation: true
+      database: wishlist
+      authentication-database: admin
+      uri: ${spring.application.mongo}
+      repositories:
+        enabled: true
+  cloud:
+    stream:
+      default:
+        consumer:
+          maxAttempts: 5000
+          concurrency: 100
+      function:
+        definition: ${spring.application.definition}
+      kafka:
+        default:
+          producer:
+            configuration:
+              acks: all
+              retries: 2147483647
+              enable.idempotence: true
+            sync: true
+          consumer:
+            configuration:
+              max.poll.records: 1
+        binder:
+          configuration:
+            isolation:
+              level: read_committed
+          autoCreateTopics: false
+          brokers: ${spring.application.kafka}
+      bindings:
+        sendCashIn-out-0:
+          destination:  cashflow-sendCashIn
+          group: ${spring.application.group}
+          content-type: application/json
+        sendCashOut-out-0:
+          destination: cashflow-sendCashOut
+          group: ${spring.application.group}
+          content-type: application/json
+
+sonar:
+  projectKey: wishlist
+  projectName: wishlist
+  projectVersion: 1.0
+  source: .
+  java:
+    binaries: .
+    file:
+      sufiffixes: fava
+  sourceEncoding: UTF-8
