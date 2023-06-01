@@ -3,15 +3,13 @@ package com.example.wishlist.controller;
 import com.example.wishlist.dto.PersonDTO;
 import com.example.wishlist.service.WishListService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
 import javax.validation.Valid;
 
-@RequestMapping("/wishList")
+@RequestMapping(value = "/wishList")
 @RestController
-@Validated
 public class WishListController {
 
     private final WishListService wishListService;
@@ -28,15 +26,16 @@ public class WishListController {
     }
 
     @PostMapping("/save")
-    public Mono<ResponseEntity<PersonDTO>> saveWishListOfPerson(@RequestBody @Valid PersonDTO personDTO) {
+    public Mono<ResponseEntity<PersonDTO>> saveWishListOfPerson(@RequestBody PersonDTO personDTO) {
         return Mono.just(personDTO)
-                .flatMap(wishListService::saveWishList)
-                .map(ResponseEntity::ok);
+                //.flatMap(wishListService::saveWishList)
+                //.map(ResponseEntity::ok);
+                .thenReturn(ResponseEntity.ok(personDTO));
     }
 
     @PutMapping("/update")
-    public Mono<ResponseEntity<PersonDTO>> updateWishListOfPerson(@RequestBody @Valid PersonDTO personDTO) {
-        return Mono.just(personDTO)
+    public Mono<ResponseEntity<PersonDTO>> updateWishListOfPerson(@RequestBody @Valid PersonDTO personDTOas) {
+        return Mono.just(personDTOas)
                 .flatMap(wishListService::updateWishList)
                 .map(ResponseEntity::ok);
     }

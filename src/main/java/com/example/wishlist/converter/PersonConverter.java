@@ -19,26 +19,24 @@ public class PersonConverter {
                 .withDataNascimento(personDTO.getDataNascimento())
                 .withId(personDTO.getId())
                 .withNome(personDTO.getNome())
-                .withWishlist(getWishList(personDTO.getWishlist()))
+                .withWishlist(getWishList(personDTO.getWishList()))
                 .build();
     }
 
     private static Wishlist getWishList(WishlistDTO wishlist) {
         return Wishlist.builder()
                 .withFinished(wishlist.getFinished())
-                .withId(wishlist.getId())
                 .withProducts(getProducts(wishlist.getProducts()))
                 .build();
     }
 
     private static List<Product> getProducts(List<ProductDTO> products) {
         List<Product> pdcts = new ArrayList<>();
-        products.forEach(productDTO ->
+        products.forEach(productDTOas ->
                 pdcts.add(Product.builder()
-                        .withValue(productDTO.getValue())
-                        .withId(productDTO.getId())
-                        .withProductName(productDTO.getProductName())
-                        .withUrlImage(productDTO.getUrlImage())
+                        .withValue(productDTOas.getValue())
+                        .withProductName(productDTOas.getProductName())
+                        .withUrlImage(productDTOas.getUrlImage())
                         .build())
         );
         return pdcts;

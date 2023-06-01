@@ -49,13 +49,8 @@ spring:
           group: ${spring.application.group}
           content-type: application/json
 
-sonar:
-  projectKey: wishlist
-  projectName: wishlist
-  projectVersion: 1.0
-  source: .
-  java:
-    binaries: .
-    file:
-      sufiffixes: fava
-  sourceEncoding: UTF-8
+management:
+  metrics:
+    export:
+      influx:
+        auto-create-db: true

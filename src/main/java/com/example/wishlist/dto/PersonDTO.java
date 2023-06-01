@@ -1,19 +1,18 @@
 package com.example.wishlist.dto;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.time.LocalDate;
 
 public class PersonDTO {
 
     private String id;
-    @NotNull
+
     private String nome;
-    @NotNull
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private LocalDate dataNascimento;
-    @NotNull
-    @Valid
-    private WishlistDTO wishListDTO;
+
+    private WishlistDTO wishList;
 
     private PersonDTO() {
     }
@@ -22,7 +21,7 @@ public class PersonDTO {
         id = builder.id;
         nome = builder.nome;
         dataNascimento = builder.dataNascimento;
-        wishListDTO = builder.wishlistDTO;
+        wishList = builder.wishList;
     }
 
     public static Builder builder() {
@@ -41,8 +40,8 @@ public class PersonDTO {
         return dataNascimento;
     }
 
-    public WishlistDTO getWishlist() {
-        return wishListDTO;
+    public WishlistDTO getWishList() {
+        return wishList;
     }
 
 
@@ -50,7 +49,7 @@ public class PersonDTO {
         private String id;
         private String nome;
         private LocalDate dataNascimento;
-        private WishlistDTO wishlistDTO;
+        private WishlistDTO wishList;
 
         private Builder() {
         }
@@ -70,8 +69,8 @@ public class PersonDTO {
             return this;
         }
 
-        public Builder withWishlist(WishlistDTO val) {
-            wishlistDTO = val;
+        public Builder withWishList(WishlistDTO val) {
+            wishList = val;
             return this;
         }
 

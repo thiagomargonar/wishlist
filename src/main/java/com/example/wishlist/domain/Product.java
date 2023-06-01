@@ -1,14 +1,10 @@
 package com.example.wishlist.domain;
 
-import org.springframework.data.annotation.Id;
-
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 import java.math.BigDecimal;
 
 public class Product {
-    @Id
-    private String id;
     @NotNull
     private String productName;
     @NotNull
@@ -21,7 +17,6 @@ public class Product {
     }
 
     private Product(Builder builder) {
-        id = builder.id;
         productName = builder.productName;
         value = builder.value;
         urlImage = builder.urlImage;
@@ -29,10 +24,6 @@ public class Product {
 
     public static Builder builder() {
         return new Builder();
-    }
-
-    public String getId() {
-        return id;
     }
 
     public String getProductName() {
@@ -49,17 +40,11 @@ public class Product {
 
 
     public static final class Builder {
-        private String id;
         private String productName;
         private BigDecimal value;
         private String urlImage;
 
         private Builder() {
-        }
-
-        public Builder withId(String val) {
-            id = val;
-            return this;
         }
 
         public Builder withProductName(String val) {

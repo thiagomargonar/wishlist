@@ -20,15 +20,14 @@ public class PersonDTOConverter {
                 .withDataNascimento(person.getDataNascimento())
                 .withId(person.getId())
                 .withNome(person.getNome())
-                .withWishlist(getWishList(person.getWishList()))
+                .withWishList(getWishList(person.getWishList()))
                 .build();
     }
 
     private static WishlistDTO getWishList(Wishlist wishlist) {
         return WishlistDTO.builder()
                 .withFinished(wishlist.getFinished())
-                .withId(wishlist.getId())
-                .withProducts(getProducts(wishlist.getProducts()))
+                .withProductDTOS(getProducts(wishlist.getProducts()))
                 .build();
     }
 
@@ -37,7 +36,6 @@ public class PersonDTOConverter {
         products.forEach(productDTO ->
                 pdcts.add(ProductDTO.builder()
                         .withValue(productDTO.getValue())
-                        .withId(productDTO.getId())
                         .withProductName(productDTO.getProductName())
                         .withUrlImage(productDTO.getUrlImage())
                         .build())

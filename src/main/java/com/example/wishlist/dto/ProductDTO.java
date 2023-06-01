@@ -6,20 +6,16 @@ import java.math.BigDecimal;
 
 public class ProductDTO {
 
-    private String id;
-    @NotNull
     private String productName;
-    @NotNull
-    @PositiveOrZero
+
     private BigDecimal value;
-    @NotNull
+
     private String urlImage;
 
-    private ProductDTO() {
+    public ProductDTO() {
     }
 
     private ProductDTO(Builder builder) {
-        id = builder.id;
         productName = builder.productName;
         value = builder.value;
         urlImage = builder.urlImage;
@@ -27,10 +23,6 @@ public class ProductDTO {
 
     public static Builder builder() {
         return new Builder();
-    }
-
-    public String getId() {
-        return id;
     }
 
     public String getProductName() {
@@ -47,17 +39,11 @@ public class ProductDTO {
 
 
     public static final class Builder {
-        private String id;
         private String productName;
         private BigDecimal value;
         private String urlImage;
 
         private Builder() {
-        }
-
-        public Builder withId(String val) {
-            id = val;
-            return this;
         }
 
         public Builder withProductName(String val) {
