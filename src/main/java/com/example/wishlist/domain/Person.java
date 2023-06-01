@@ -19,7 +19,7 @@ public class Person {
 
     @NotNull
     @Valid
-    private Wishlist wishlist;
+    private Wishlist wishList;
 
     private Person() {
     }
@@ -28,7 +28,7 @@ public class Person {
         id = builder.id;
         nome = builder.nome;
         dataNascimento = builder.dataNascimento;
-        wishlist = builder.wishlist;
+        wishList = builder.wishlist;
     }
 
     public static Builder builder() {
@@ -47,8 +47,8 @@ public class Person {
         return dataNascimento;
     }
 
-    public Wishlist getWishlist() {
-        return wishlist;
+    public Wishlist getWishList() {
+        return wishList;
     }
 
 

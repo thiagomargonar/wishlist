@@ -15,12 +15,12 @@ public class PersonDTOConverter {
     private PersonDTOConverter() {
     }
 
-    public static PersonDTO ofPersonDTO(Person person) {
+    public static PersonDTO ofPerson(Person person) {
         return PersonDTO.builder()
                 .withDataNascimento(person.getDataNascimento())
                 .withId(person.getId())
                 .withNome(person.getNome())
-                .withWishlist(getWishList(person.getWishlist()))
+                .withWishlist(getWishList(person.getWishList()))
                 .build();
     }
 

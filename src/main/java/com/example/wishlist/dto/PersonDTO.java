@@ -13,7 +13,7 @@ public class PersonDTO {
     private LocalDate dataNascimento;
     @NotNull
     @Valid
-    private WishlistDTO wishlistDTO;
+    private WishlistDTO wishListDTO;
 
     private PersonDTO() {
     }
@@ -22,7 +22,7 @@ public class PersonDTO {
         id = builder.id;
         nome = builder.nome;
         dataNascimento = builder.dataNascimento;
-        wishlistDTO = builder.wishlistDTO;
+        wishListDTO = builder.wishlistDTO;
     }
 
     public static Builder builder() {
@@ -42,7 +42,7 @@ public class PersonDTO {
     }
 
     public WishlistDTO getWishlist() {
-        return wishlistDTO;
+        return wishListDTO;
     }
 
 
