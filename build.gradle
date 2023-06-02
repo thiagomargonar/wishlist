@@ -10,6 +10,7 @@ sourceCompatibility = '11'
 
 repositories {
 	mavenCentral()
+	gradlePluginPortal()
 }
 
 ext {
@@ -26,7 +27,9 @@ dependencies {
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'io.projectreactor:reactor-test'
-	testImplementation 'org.springframework.cloud:spring-cloud-stream-test-binder'
+
+	testImplementation group: 'org.springframework.cloud', name: 'spring-cloud-stream-binder-test', version: '3.2.8'
+
 	testImplementation 'org.springframework.kafka:spring-kafka-test'
 }
 

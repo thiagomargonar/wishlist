@@ -10,7 +10,7 @@ public class WishlistDTO {
 
     private String urlImage;
 
-    public WishlistDTO() {
+    private WishlistDTO() {
     }
 
     private WishlistDTO(Builder builder) {
@@ -62,5 +62,14 @@ public class WishlistDTO {
         public WishlistDTO build() {
             return new WishlistDTO(this);
         }
+    }
+
+    @Override
+    public String toString() {
+        return "WishlistDTO{" +
+                "productName=" + productName +
+                ", value=" + value +
+                ", urlImage=" + urlImage +
+                "}";
     }
 }

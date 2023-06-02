@@ -31,7 +31,7 @@ public class WishListController {
     public Mono<ResponseEntity<PersonDTO>> saveWishListOfPerson(@RequestBody @Valid PersonDTO personDTO) {
         return Mono.just(personDTO)
                 .flatMap(wishListService::saveWishList)
-                .map(p -> ResponseEntity.status(HttpStatus.ACCEPTED).body(p));
+                .map(p -> ResponseEntity.status(HttpStatus.CREATED).body(p));
     }
 
     @PutMapping
