@@ -22,8 +22,9 @@ public class WishListController {
     @GetMapping("/{document}")
     public Mono<ResponseEntity<PersonDTO>> getWishListOfPerson(@PathVariable String document) {
         return Mono.just(document)
-                .flatMap(wishListService::getWishListByPersonId)
-                .map(ResponseEntity::ok);
+                .flatMap(wishListService::getWishListByPersonDocument)
+                .map(ResponseEntity::ok)
+                .switchIfEmpty(Mono.just(ResponseEntity.status(HttpStatus.NOT_FOUND).build()));
     }
 
     @PostMapping
@@ -33,11 +34,19 @@ public class WishListController {
                 .map(p -> ResponseEntity.status(HttpStatus.ACCEPTED).body(p));
     }
 
+    @PostMapping("/send-message/{document}")
+    public Mono<ResponseEntity<Void>> finishedSaleOfWishListOfPerson(@PathVariable String document) {
+        return Mono.just(document)
+                .flatMap(wishListService::finishedWishList)
+                .map(p -> ResponseEntity.status(HttpStatus.ACCEPTED).build());
+    }
+
     @PutMapping
     public Mono<ResponseEntity<PersonDTO>> updateWishListOfPerson(@RequestBody @Valid PersonDTO personDTO) {
         return Mono.just(personDTO)
                 .flatMap(wishListService::updateWishList)
-                .map(p -> ResponseEntity.status(HttpStatus.ACCEPTED).build());
+                .map(ResponseEntity::ok)
+                .switchIfEmpty(Mono.just(ResponseEntity.status(HttpStatus.NOT_FOUND).build()));
     }
 
     @DeleteMapping("/{personId}")
