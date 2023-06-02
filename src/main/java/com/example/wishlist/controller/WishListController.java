@@ -34,14 +34,6 @@ public class WishListController {
                 .map(p -> ResponseEntity.status(HttpStatus.ACCEPTED).body(p));
     }
 
-    //TODO remover esse metodo e recriar como consumidor.
-    @PostMapping("/send-message/{document}")
-    public Mono<ResponseEntity<Void>> finishedSaleOfWishListOfPerson(@PathVariable String document) {
-        return Mono.just(document)
-                .flatMap(wishListService::finishedWishList)
-                .map(p -> ResponseEntity.status(HttpStatus.ACCEPTED).build());
-    }
-
     @PutMapping
     public Mono<ResponseEntity<PersonDTO>> updateWishListOfPerson(@RequestBody @Valid PersonDTO personDTO) {
         return Mono.just(personDTO)
