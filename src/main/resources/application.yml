@@ -4,7 +4,7 @@ spring:
   application:
     group: wishlist
     kafka: localhost:9092
-    definition:
+    definition: dreamProduct;finishEmailCliente;wishListFinishedConsumerReturn
     mongo: mongodb://root:rootpassword@localhost
   data:
     mongodb:
@@ -40,22 +40,32 @@ spring:
           autoCreateTopics: false
           brokers: ${spring.application.kafka}
       bindings:
-        sendCashIn-out-0:
-          destination:  cashflow-sendCashIn
+        dreamProduct-out-0:
+          destination: dream_product
           group: ${spring.application.group}
           content-type: application/json
-        sendCashOut-out-0:
-          destination: cashflow-sendCashOut
+        finishEmailCliente-out-0:
+          destination: dream_product_email
           group: ${spring.application.group}
+          content-type: application/json
+        wishListFinishedConsumerReturn-in-0:
+          destination: finished_dream_product
+          consumer:
+            maxAttempts: 1
+            concurrency: 2
+          group: ${spring.application.name}
           content-type: application/json
 
-sonar:
-  projectKey: wishlist
-  projectName: wishlist
-  projectVersion: 1.0
-  source: .
-  java:
-    binaries: .
-    file:
-      sufiffixes: fava
-  sourceEncoding: UTF-8
+management:
+  metrics:
+    export:
+      influx:
+        auto-create-db: true
+
+application:
+  consumer:
+    retry:
+      maxRetries: 3
+      initialInterval: 5000
+      maxInterval: 30000
+    block: 500000
