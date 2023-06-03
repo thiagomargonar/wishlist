@@ -9,11 +9,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import reactor.core.publisher.Mono;
-import reactor.test.StepVerifier;
 
 import java.time.LocalDate;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -35,7 +33,7 @@ class WishListCompletedConsumerTest {
     }
 
     @Test
-    void when_sendMessageOf_then_send_message_to_topic(){
+    void when_sendMessageOf_then_send_message_to_topic() {
 
         var pDTO = PersonDTO.builder()
                 .withId("123456")
@@ -49,7 +47,7 @@ class WishListCompletedConsumerTest {
     }
 
     @Test
-    void when_sendMessageOf_then_send_message_to_topic1(){
+    void when_sendMessageOf_then_send_message_to_topic1() {
 
         var pDTO = PersonDTO.builder()
                 .withId("123456")
