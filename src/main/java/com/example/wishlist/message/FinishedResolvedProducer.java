@@ -22,9 +22,7 @@ public class FinishedResolvedProducer {
     }
 
     private PersonDTO sendMessageTo(PersonDTO p) {
-        finishSaleSend.forEach(finishSale -> {
-            finishSale.sendMessageOf(p);
-        });
+        finishSaleSend.forEach(finishSale -> finishSale.sendMessageOf(p));
         return p;
     }
 
