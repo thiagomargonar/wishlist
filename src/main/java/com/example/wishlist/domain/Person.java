@@ -7,8 +7,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -63,7 +61,7 @@ public class Person {
     }
 
     public List<Wishlist> getWishlist() {
-        if(wishlist.size() > 20){
+        if (wishlist.size() > 20) {
             throw new RuntimeException("Numero maximo sugerido na lista é maior que 20");
         }
         return wishlist;
