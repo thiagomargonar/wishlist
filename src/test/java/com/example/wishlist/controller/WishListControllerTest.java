@@ -65,6 +65,26 @@ class WishListControllerTest {
     }
 
     @Test
+    void when_getExistiProductForThisPerson_then_return_if_product_exist() {
+        var person = PersonDTO.builder()
+                .withDataNascimento(LocalDate.now())
+                .withWishDocument("12345678901")
+                .withNome("Test de Integração")
+                .withWishList(getWishList())
+                .build();
+
+        when(wishListService.getExistiProductForThisPerson(person.getDocument(), person.getWishList().get(0).getProductName())).thenReturn(Mono.just(true));
+
+        client.get()
+                .uri("/wishList/{document}/{productName}", person.getDocument(), person.getWishList().get(0).getProductName())
+                .exchange()
+                .expectStatus()
+                .isOk()
+                .expectBody()
+                .jsonPath("$").isEqualTo(true);
+    }
+
+    @Test
     void when_getWishList_with_document_invalid_then_return_status_not_found() {
 
         when(wishListService.getWishListByPersonDocument("12345678900")).thenReturn(Mono.empty());

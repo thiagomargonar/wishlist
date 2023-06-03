@@ -9,5 +9,4 @@ import reactor.core.publisher.Mono;
 public interface PersonRepository extends ReactiveMongoRepository<Person, String>, WishListRepositoryCustom {
 
     Mono<Person> findByDocument(String document);
-
 }

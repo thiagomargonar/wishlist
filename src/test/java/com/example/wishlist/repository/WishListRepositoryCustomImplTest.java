@@ -65,6 +65,33 @@ class WishListRepositoryCustomImplTest {
         assertThat(listPaymentAccountUpdate.get(0).getWishlist()).hasSize(1);
     }
 
+
+    @Test
+    void when_need_looking_if_exist_product_by_person_then_return_if_product_exist() {
+        var person = Person.builder()
+                .withDataNascimento(LocalDate.now())
+                .withDocument("12345678901")
+                .withNome("Test de Integração")
+                .withWishlist(getWishList())
+                .build();
+
+        repository.save(person).block();
+
+        var listPaymentAccount = repository.findAll().collectList().block();
+        assert listPaymentAccount != null;
+        assertThat(listPaymentAccount).isNotEmpty();
+        assertThat(listPaymentAccount.get(0).getDocument()).isEqualTo(person.getDocument());
+        assertThat(listPaymentAccount.get(0).getWishlist()).hasSize(3);
+
+        var exit = repository.existsByDocumentAndProductName(person.getDocument(),"produto de teste").block();
+
+        assertThat(exit).isTrue();
+
+        exit = repository.existsByDocumentAndProductName(person.getDocument(),"produto inexistente").block();
+        assertThat(exit).isFalse();
+
+    }
+
     private List<Wishlist> getWishList2() {
         return List.of(Wishlist.builder()
                 .withValue(BigDecimal.ONE)

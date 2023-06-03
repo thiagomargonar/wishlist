@@ -27,6 +27,14 @@ public class WishListController {
                 .switchIfEmpty(Mono.just(ResponseEntity.status(HttpStatus.NOT_FOUND).build()));
     }
 
+    @GetMapping("/{document}/{productName}")
+    public Mono<ResponseEntity<Boolean>> getExistiProductForThisPerson(@PathVariable String document, @PathVariable String productName) {
+        return Mono.just(document)
+                .flatMap(s -> wishListService.getExistiProductForThisPerson(document,productName))
+                .map(ResponseEntity::ok)
+                .switchIfEmpty(Mono.just(ResponseEntity.status(HttpStatus.NOT_FOUND).build()));
+    }
+
     @PostMapping
     public Mono<ResponseEntity<PersonDTO>> saveWishListOfPerson(@RequestBody @Valid PersonDTO personDTO) {
         return Mono.just(personDTO)

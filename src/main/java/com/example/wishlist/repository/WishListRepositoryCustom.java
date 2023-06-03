@@ -5,4 +5,6 @@ import reactor.core.publisher.Mono;
 
 public interface WishListRepositoryCustom {
     Mono<Person> updateWishList(Person person);
+
+    Mono<Boolean> existsByDocumentAndProductName(String document, String productName);
 }
