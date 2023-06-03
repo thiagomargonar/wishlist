@@ -39,6 +39,24 @@ class WishListServiceTest {
     private WishListService wishListService;
 
     @Test
+    void when_call_getExistiProductForThisPerson_then_return_if_product_exist() {
+        var person = Person.builder()
+                .withDataNascimento(LocalDate.now())
+                .withDocument("12345678901")
+                .withNome("Test de Integração")
+                .withWishlist(getWishList())
+                .build();
+        when(personRepository.existsByDocumentAndProductName(person.getDocument(), person.getWishlist().get(0).getProductName())).thenReturn(Mono.just(true));
+
+        StepVerifier.create(wishListService.getExistiProductForThisPerson(person.getDocument(), person.getWishlist().get(0).getProductName()))
+                .assertNext(result -> assertThat(result).isTrue())
+                .expectComplete()
+                .verify();
+
+        verify(personRepository).existsByDocumentAndProductName(anyString(), anyString());
+    }
+
+    @Test
     void when_call_getWishListByPersonDocument_then_return_a_person() {
         var person = Person.builder()
                 .withDataNascimento(LocalDate.now())

@@ -33,4 +33,16 @@ public class WishListRepositoryCustomImpl implements WishListRepositoryCustom{
                 .set(WISH_LIST, person.getWishlist());
         return reactiveMongoTemplate.findAndModify(query, update, Person.class);
     }
+
+    @Override
+    public Mono<Boolean> existsByDocumentAndProductName(String document, String productName) {
+        Query query = new Query();
+        List<Criteria> criteriaList = new ArrayList<>();
+        criteriaList.add(Criteria.where("document").is(document));
+        criteriaList.add(Criteria.where("wishlist.productName").is(productName.replace("_"," ")
+                .replace("-"," ")));
+        criteriaList.forEach(query::addCriteria);
+
+        return reactiveMongoTemplate.exists(query,Person.class);
+    }
 }

@@ -35,6 +35,13 @@ public class WishListService {
                 .doOnError(throwable -> Mono.error(new SQLException(PROBLEMA_COM_BANCO_DE_DADOS, throwable)));
     }
 
+    public Mono<Boolean> getExistiProductForThisPerson(String document, String productName) {
+        return Mono.just(document)
+                .flatMap(s ->  personRepository.existsByDocumentAndProductName(document,productName))
+                .doOnNext(person -> LOG.debug("Produto de compra localizado com sucesso: {}", person))
+                .doOnError(throwable -> Mono.error(new SQLException(PROBLEMA_COM_BANCO_DE_DADOS, throwable)));
+    }
+
     public Mono<PersonDTO> saveWishList(PersonDTO personDTO) {
         return Mono.just(personDTO)
                 .map(PersonConverter::ofPersonDTO)
