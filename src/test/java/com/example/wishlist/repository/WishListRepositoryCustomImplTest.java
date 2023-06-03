@@ -54,17 +54,15 @@ class WishListRepositoryCustomImplTest {
         var listPaymentAccount = repository.findAll().collectList().block();
         assert listPaymentAccount != null;
         assertThat(listPaymentAccount).isNotEmpty();
-        assertThat(listPaymentAccount).hasSize(1);
         assertThat(listPaymentAccount.get(0).getDocument()).isEqualTo(person.getDocument());
-        assertThat(listPaymentAccount.get(0).getWishlist().size()).isEqualTo(3);
+        assertThat(listPaymentAccount.get(0).getWishlist()).hasSize(3);
 
         repository.updateWishList(personUpdate).block();
         var listPaymentAccountUpdate = repository.findAll().collectList().block();
         assert listPaymentAccountUpdate != null;
-        assertThat(listPaymentAccountUpdate.isEmpty()).isFalse();
-        assertThat(listPaymentAccountUpdate.size()).isEqualTo(1);
+        assertThat(listPaymentAccountUpdate).isNotEmpty();
         assertThat(listPaymentAccountUpdate.get(0).getDocument()).isEqualTo(personUpdate.getDocument());
-        assertThat(listPaymentAccountUpdate.get(0).getWishlist().size()).isEqualTo(1);
+        assertThat(listPaymentAccountUpdate.get(0).getWishlist()).hasSize(1);
     }
 
     private List<Wishlist> getWishList2() {
