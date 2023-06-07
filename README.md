@@ -24,8 +24,22 @@ Facade
 
 
 ## Execução
-Considerando que voce já esteja com o docker rodando as imagens do kafka e 
-do mongoDB, configurar o arquivo application.yml.
+### Premissas.
+* Docker.
+* Java 11.
+
+### Passo a passo
+Executar o "docker/docker-compose/docker-compose-kafka.yml" da seguinte forma, 
+abra o terminal na pasta do projeto wishlist e execute o arquivo da seguinte forma:
+<br/>
+<i>docker compose -f ./docker/docker-compose/docker-compose-kafka-mongo.yml up</i>
+<br/>
+Agora basta acessar o arquivo <br/>
+<i>com/example/wishlist/WishlistApplication.java</i>
+<br/>
+clicar com botão direito e após em run ou executar.
+<br/>
+
 
 ### Observações adicionais
 Até o momento não foi registrado nenhum problema ao executar o projeto.
@@ -39,6 +53,7 @@ do produto. Em ambas as telas ele pode selecionar os produtos
 de sua preferência e armazená-los na sua Wishlist. A qualquer
 momento o cliente pode visualizar sua Wishlist completa, com
 todos os produtos que ele selecionou em uma única tela.
+
 #### O que deve ser feito? 
 O objetivo é que você desenvolva um serviço HTTP resolvendo a
 funcionalidade de Wishlist do cliente. Esse serviço deve atender
