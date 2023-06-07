@@ -2,6 +2,12 @@ package com.example.wishlist.controller;
 
 import com.example.wishlist.dto.PersonDTO;
 import com.example.wishlist.service.WishListService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,8 +25,15 @@ public class WishListController {
         this.wishListService = wishListService;
     }
 
+    @Operation(summary = "Retorna lista de desejos cadastrada para o documento.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Lista encontrada e retornada.",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = PersonDTO.class)) }),
+            @ApiResponse(responseCode = "404", description = "Documento não consta nenhuma lista.",
+                    content = @Content) })
     @GetMapping("/{document}")
-    public Mono<ResponseEntity<PersonDTO>> getWishListOfPerson(@PathVariable String document) {
+    public Mono<ResponseEntity<PersonDTO>> getWishListOfPerson(@Parameter(description = "Documento do cliente somente numeros") @PathVariable String document) {
         return Mono.just(document)
                 .flatMap(wishListService::getWishListByPersonDocument)
                 .map(ResponseEntity::ok)

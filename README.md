@@ -34,11 +34,14 @@ abra o terminal na pasta do projeto wishlist e execute o arquivo da seguinte for
 <br/>
 <i>docker compose -f ./docker/docker-compose/docker-compose-kafka-mongo.yml up</i>
 <br/>
-Agora basta acessar o arquivo <br/>
+após o container estartar, basta acessar o arquivo <br/>
 <i>com/example/wishlist/WishlistApplication.java</i>
 <br/>
-clicar com botão direito e após em run ou executar.
+E executar o projeto.
 <br/>
+Para ver os endpoins acesse:<br/>
+http://localhost:8080/swagger-ui/index.html
+
 
 
 ### Observações adicionais

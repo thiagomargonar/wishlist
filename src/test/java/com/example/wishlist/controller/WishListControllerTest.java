@@ -21,6 +21,7 @@ import reactor.core.publisher.Mono;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -157,6 +158,33 @@ class WishListControllerTest {
     }
 
     @Test
+    void when_Post_WishList_with_wishlist_size_idem_20_or_mor_then_return_BadRequest() {
+
+        var person = PersonDTO.builder()
+                .withDataNascimento(LocalDate.of(2020, 9, 20))
+                .withWishDocument("12345678901")
+                .withNome("Test de Integração")
+                .withWishList(getWishList2())
+                .build();
+
+        var testeste = toJSONObject(person).toString();
+
+        client.post()
+                .uri("/wishList")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .bodyValue(testeste)
+                .exchange()
+                .expectStatus()
+                .is4xxClientError()
+                .expectBody()
+                .jsonPath("$").isMap()
+                .jsonPath("$.trace");
+
+        verify(wishListService, never()).saveWishList(any());
+    }
+
+    @Test
     void when_Put_WishList_with_document_bodyOk_then_return_PersonDTO() {
         var person = PersonDTO.builder()
                 .withDataNascimento(LocalDate.of(2020, 9, 20))
@@ -263,6 +291,21 @@ class WishListControllerTest {
                 .withProductName("produto de teste")
                 .withUrlImage("/teste/123")
                 .build());
+    }
+
+    private List<WishlistDTO> getWishList2() {
+
+        ArrayList arrayList = new ArrayList();
+
+        for (int x = 0;x<30;x++){
+            arrayList.add(WishlistDTO.builder()
+                    .withValue(BigDecimal.ONE)
+                    .withProductName("produto de teste")
+                    .withUrlImage("/teste/123")
+                    .build());
+        }
+
+        return arrayList;
     }
 
 }

@@ -1,6 +1,7 @@
 package com.example.wishlist.dto;
 
 import com.example.wishlist.annotations.CpfOrCnpj;
+import com.example.wishlist.annotations.MaxWishlist;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.validation.constraints.NotEmpty;
@@ -23,6 +24,7 @@ public class PersonDTO {
     @CpfOrCnpj
     private String document;
     @NotEmpty
+    @MaxWishlist
     private List<WishlistDTO> wishList;
 
     private PersonDTO() {
@@ -41,9 +43,6 @@ public class PersonDTO {
     }
 
     public List<WishlistDTO> getWishList() {
-        if(wishList.size() > 20){
-            throw new RuntimeException("Numero maximo sugerido na lista é maior que 20");
-        }
         return wishList;
     }
 

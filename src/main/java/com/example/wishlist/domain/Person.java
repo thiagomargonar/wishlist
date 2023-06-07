@@ -1,6 +1,7 @@
 package com.example.wishlist.domain;
 
 import com.example.wishlist.annotations.CpfOrCnpj;
+import com.example.wishlist.annotations.MaxWishlist;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -27,6 +28,7 @@ public class Person {
     private String document;
 
     @NotEmpty
+    @MaxWishlist
     private List<Wishlist> wishlist;
 
     private Person() {
@@ -61,9 +63,6 @@ public class Person {
     }
 
     public List<Wishlist> getWishlist() {
-        if (wishlist.size() > 20) {
-            throw new RuntimeException("Numero maximo sugerido na lista é maior que 20");
-        }
         return wishlist;
     }
 
