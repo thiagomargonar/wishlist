@@ -29,20 +29,13 @@ Facade
 * Java 11.
 
 ### Passo a passo
-Executar o "docker/docker-compose/docker-compose-kafka.yml" da seguinte forma, 
-abra o terminal na pasta do projeto wishlist e execute o arquivo da seguinte forma:
-<br/>
-<i>docker compose -f ./docker/docker-compose/docker-compose-kafka-mongo.yml up</i>
-<br/>
-após o container estartar, basta acessar o arquivo <br/>
-<i>com/example/wishlist/WishlistApplication.java</i>
-<br/>
-E executar o projeto.
-<br/>
-Para ver os endpoins acesse:<br/>
+Pelo terminal, acessar a pasta onde clonou o projeto.
+* Executar o comando "docker compose -f ./docker/docker-compose/docker-compose-kafka-mongo.yml up"
+* Após a inicialização do docker compose, abrir outro terminal e na pasta onde clonou o projeto e executar o projeto clonado com o comando <br/>
+com o comando "gradlew build".
+* E por fim, executar o comando "java -jar ./build/libs/wishlist-0.0.1-SNAPSHOT.jar"
+<br/>Após executado a aplicação, para ver os endpoins acesse:<br/>
 http://localhost:8080/swagger-ui/index.html
-
-
 
 ### Observações adicionais
 Até o momento não foi registrado nenhum problema ao executar o projeto.
