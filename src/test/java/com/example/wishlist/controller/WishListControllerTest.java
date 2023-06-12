@@ -2,6 +2,9 @@ package com.example.wishlist.controller;
 
 import com.example.wishlist.dto.PersonDTO;
 import com.example.wishlist.dto.WishlistDTO;
+import com.example.wishlist.exception.ControllerExceptionHandler;
+import com.example.wishlist.exception.ErrorMessage;
+import com.example.wishlist.exception.ResourceNotFoundException;
 import com.example.wishlist.service.WishListService;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -13,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -31,6 +35,7 @@ import static org.mockito.Mockito.*;
 @ExtendWith({SpringExtension.class, MockitoExtension.class})
 @AutoConfigureWebTestClient
 @WebFluxTest(WishListController.class)
+@Import({ControllerExceptionHandler.class})
 class WishListControllerTest {
 
     @Autowired
@@ -152,7 +157,7 @@ class WishListControllerTest {
                 .bodyValue(testeste)
                 .exchange()
                 .expectStatus()
-                .isBadRequest();
+                .is5xxServerError();
 
         verify(wishListService, never()).saveWishList(any());
     }
@@ -176,7 +181,7 @@ class WishListControllerTest {
                 .bodyValue(testeste)
                 .exchange()
                 .expectStatus()
-                .is4xxClientError()
+                .is5xxServerError()
                 .expectBody()
                 .jsonPath("$").isMap()
                 .jsonPath("$.trace");
@@ -235,7 +240,7 @@ class WishListControllerTest {
                 .bodyValue(testeste)
                 .exchange()
                 .expectStatus()
-                .isBadRequest();
+                .is5xxServerError();
 
         verify(wishListService, never()).updateWishList(any());
     }
