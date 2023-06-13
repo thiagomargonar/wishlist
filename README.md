@@ -33,9 +33,16 @@ Pelo terminal, acessar a pasta onde clonou o projeto.
 * Executar o comando "docker compose -f ./docker/docker-compose/docker-compose-kafka-mongo.yml up"
 * Após a inicialização do docker compose, abrir outro terminal e na pasta onde clonou o projeto e executar o projeto clonado com o comando <br/>
 com o comando "gradlew build".
-* E por fim, executar o comando "java -jar ./build/libs/wishlist-0.0.1-SNAPSHOT.jar"
-<br/>Após executado a aplicação, para ver os endpoins acesse:<br/>
-http://localhost:8080/swagger-ui/index.html
+* Feito o Build do projeto, vamos criar nossa imagem docker para executar de uma forma mais simples, lembrando que é necessário ter o Java 11 na Maquina<br/>
+  * basta executar: java -jar C:\TESTES\wishlist\build\libs\wishlist-0.0.1-SNAPSHOT.jar
+  *   http://localhost:8080/swagger-ui/index.html para ver os endpoint points.
+
+* Uma outra forma de executar o projeto é pelo docker da seguinte forma:
+  * Execute o comando no seu terminal: "docker build -t margonar/javaapp:1.0 ."<br/>
+  * Agora vamos rodar nossa imagem crianda da seguinte forma, execute: <br/>
+  docker run -d -p 8080:8080 margonar/javaapp:1.0"<br/>
+  * Agora acesse:
+  http://localhost:8080/swagger-ui/index.html para ver os endpoint points.
 
 ### Observações adicionais
 Até o momento não foi registrado nenhum problema ao executar o projeto.
